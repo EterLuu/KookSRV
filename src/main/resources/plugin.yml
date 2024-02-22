@@ -1,0 +1,7 @@
+name: KookSRV
+version: '${project.version}'
+author: Eter Lu
+main: ink.ziip.kooksrv.KookSRV
+api-version: '1.20'
+depend:
+  - PlaceholderAPI
