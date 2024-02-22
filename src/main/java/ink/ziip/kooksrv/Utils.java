@@ -1,9 +1,13 @@
 package ink.ziip.kooksrv;
 
+import ink.ziip.kooksrv.config.Config;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,5 +41,27 @@ public class Utils {
         }
 
         KookSRV.getInstance().getLogger().log(Level.INFO, message);
+    }
+
+    public static String getOnlinePlayerList() {
+
+        List<String> onlinePlayers = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            onlinePlayers.add(player.getName());
+        }
+
+        if (onlinePlayers.isEmpty())
+            return Config.MESSAGE_NO_ONLINE_PLAYER;
+
+        String message = Config.MESSAGE_ONLINE_PLAYER_LIST
+                .replace("%online_players%", String.valueOf(onlinePlayers.size()))
+                .replace("%list%", String.join("，", onlinePlayers));
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            message = PlaceholderAPI.setPlaceholders(player, message);
+            break;
+        }
+
+        return message;
     }
 }

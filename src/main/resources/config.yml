@@ -1,7 +1,13 @@
 dont-edit-this:
-  version: 0
+  version: 1
 token: ""
 channel: ""
+online-players:
+  keywords:
+    - "在线玩家"
+    - "在线列表"
 messages:
   kook2minecraft: "&8[&6KOOK&8] &7%player%:&f %message%"
   minecraft2kook: "[%server_name%] %player%: %message%"
+  online-player-list: "[%server_name% (%online_players%)]: %list%"
+  no-online-player: "没有玩家在线。"
