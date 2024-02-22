@@ -1,0 +1,7 @@
+dont-edit-this:
+  version: 0
+token: ""
+channel: ""
+messages:
+  kook2minecraft: "&8[&6KOOK&8] &7%player%:&f %message%"
+  minecraft2kook: "[%server_name%] %player%: %message%"
