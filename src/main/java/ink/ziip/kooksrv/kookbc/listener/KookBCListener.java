@@ -23,7 +23,7 @@ public class KookBCListener implements Listener {
         if (message.getComponent() instanceof TextComponent) {
             String stringMessage = message.getComponent().toString();
             if (Config.ONLINE_PLAYERS_KEYWORDS.contains(stringMessage)) {
-                channel.sendComponent(Utils.getOnlinePlayerList());
+                message.reply(Utils.getOnlinePlayerList());
                 return;
             }
 
