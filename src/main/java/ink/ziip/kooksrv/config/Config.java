@@ -17,7 +17,7 @@ public class Config extends BaseConfigurationFile {
 
     @Override
     public int getLatestVersion() {
-        return 1;
+        return 2;
     }
 
     // Kook
@@ -43,4 +43,10 @@ public class Config extends BaseConfigurationFile {
 
     @ConfigOption(path = "messages.no-online-player")
     public static String MESSAGE_NO_ONLINE_PLAYER;
+
+    @ConfigOption(path = "messages.player-join")
+    public static String MESSAGE_PLAYER_JOIN;
+
+    @ConfigOption(path = "messages.player-quit")
+    public static String MESSAGE_PLAYER_QUIT;
 }

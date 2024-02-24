@@ -64,4 +64,8 @@ public class Utils {
 
         return message;
     }
+
+    public static String getPlayerHeadImageUrl(Player player) {
+        return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName());
+    }
 }

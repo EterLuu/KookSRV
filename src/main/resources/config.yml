@@ -1,5 +1,5 @@
 dont-edit-this:
-  version: 1
+  version: 2
 token: ""
 channel: ""
 online-players:
@@ -11,3 +11,5 @@ messages:
   minecraft2kook: "[%server_name%] %player%: %message%"
   online-player-list: "[%server_name% (%online_players%)]: %list%"
   no-online-player: "没有玩家在线。"
+  player-join: "%player% 加入了 %server_name%。"
+  player-quit: "%player% 离开了 %server_name%。"
