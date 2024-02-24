@@ -40,7 +40,7 @@ public class Utils {
             player.sendMessage(message);
         }
 
-        KookSRV.getInstance().getLogger().log(Level.INFO, message);
+        KookSRV.getInstance().getLogger().log(Level.INFO, ChatColor.stripColor(message));
     }
 
     public static String getOnlinePlayerList() {
