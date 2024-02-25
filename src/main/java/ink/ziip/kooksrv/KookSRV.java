@@ -2,6 +2,7 @@ package ink.ziip.kooksrv;
 
 import ink.ziip.kooksrv.config.Config;
 import ink.ziip.kooksrv.config.ConfigurationManager;
+import ink.ziip.kooksrv.integration.FloodgateManager;
 import ink.ziip.kooksrv.kookbc.listener.KookBCListener;
 import ink.ziip.kooksrv.listener.PlayerListener;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public final class KookSRV extends JavaPlugin {
     private BukkitScheduler bukkitScheduler;
     private ConfigurationManager configurationManager;
     private PlayerListener playerListener;
+    private FloodgateManager floodgateManager;
 
 
     @Override
@@ -38,19 +40,15 @@ public final class KookSRV extends JavaPlugin {
 
         configurationManager = new ConfigurationManager(instance);
         configurationManager.load();
+        floodgateManager = new FloodgateManager(instance);
+        floodgateManager.load();
 
         if (Config.TOKEN.isEmpty()) {
             getLogger().warning("Could not found token in config file!");
             Bukkit.getPluginManager().disablePlugin(this);
         }
 
-        CoreImpl core = new CoreImpl();
-        JKook.setCore(core);
-        YamlConfiguration config = new YamlConfiguration();
-        kbcClient = new KBCClient(core, config, null, Config.TOKEN);
-        kbcClient.start();
-
-        kbcClient.getCore().getEventManager().registerHandlers(kbcClient.getInternalPlugin(), new KookBCListener());
+        bukkitScheduler.runTaskAsynchronously(instance, this::initializeKookBC);
 
         playerListener = new PlayerListener(instance);
         playerListener.register();
@@ -67,5 +65,15 @@ public final class KookSRV extends JavaPlugin {
             kbcClient.getCore().getEventManager().unregisterAllHandlers(kbcClient.getInternalPlugin());
             kbcClient.shutdown();
         }
+    }
+
+    public void initializeKookBC() {
+        CoreImpl core = new CoreImpl();
+        JKook.setCore(core);
+        YamlConfiguration config = new YamlConfiguration();
+        kbcClient = new KBCClient(core, config, null, Config.TOKEN);
+        kbcClient.start();
+
+        kbcClient.getCore().getEventManager().registerHandlers(kbcClient.getInternalPlugin(), new KookBCListener());
     }
 }

@@ -64,7 +64,7 @@ public class PlayerListener extends BaseListener {
     }
 
     @EventHandler
-    public void onPlayerJoinQuit(PlayerQuitEvent event) {
+    public void onPlayerQuit(PlayerQuitEvent event) {
         plugin.getBukkitScheduler().runTaskAsynchronously(plugin, () -> {
             Player player = event.getPlayer();
 
@@ -82,6 +82,10 @@ public class PlayerListener extends BaseListener {
         CardBuilder cardBuilder = new CardBuilder();
         cardBuilder.setTheme(theme);
         cardBuilder.setSize(Size.SM);
+
+        if (plugin.getFloodgateManager().isFloodgatePlayer(player.getUniqueId())) {
+            message = message.replace("#", "BE_");
+        }
 
         MarkdownElement markdownElement = new MarkdownElement(message);
         ImageElement imageElement = new ImageElement(Utils.getPlayerHeadImageUrl(player), "", Size.SM, false);

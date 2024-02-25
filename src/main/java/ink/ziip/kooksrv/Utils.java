@@ -5,6 +5,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,9 @@ public class Utils {
     }
 
     public static String getPlayerHeadImageUrl(Player player) {
-        return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName());
+        if (!KookSRV.getInstance().getFloodgateManager().isFloodgatePlayer(player.getUniqueId()))
+            return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName());
+        else
+            return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName()).replace(FloodgateApi.getInstance().getPlayerPrefix(), "");
     }
 }
