@@ -68,7 +68,7 @@ public class Utils {
 
     public static String getPlayerHeadImageUrl(Player player) {
         if (!KookSRV.getInstance().getFloodgateManager().isFloodgatePlayer(player.getUniqueId()))
-            return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName());
+            return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName().replace("#", ""));
         else
             return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName()).replace(FloodgateApi.getInstance().getPlayerPrefix(), "");
     }

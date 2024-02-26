@@ -6,8 +6,10 @@ import ink.ziip.kooksrv.api.BaseListener;
 import ink.ziip.kooksrv.config.Config;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -48,7 +50,7 @@ public class PlayerListener extends BaseListener {
         });
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
         plugin.getBukkitScheduler().runTaskAsynchronously(plugin, () -> {
             Player player = event.getPlayer();
@@ -57,13 +59,13 @@ public class PlayerListener extends BaseListener {
             Channel channel = kbcClient.getCore().getHttpAPI().getChannel(Config.CHANNEL);
             if (channel instanceof TextChannel textChannel) {
                 String message = Config.MESSAGE_PLAYER_JOIN.replace("%player%", player.getName());
-                message = PlaceholderAPI.setPlaceholders(player, message);
+                message = PlaceholderAPI.setPlaceholders((OfflinePlayer) player, message);
                 textChannel.sendComponent(createPlayerInfoMessageCard(player, message, Theme.INFO));
             }
         });
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent event) {
         plugin.getBukkitScheduler().runTaskAsynchronously(plugin, () -> {
             Player player = event.getPlayer();
@@ -72,7 +74,7 @@ public class PlayerListener extends BaseListener {
             Channel channel = kbcClient.getCore().getHttpAPI().getChannel(Config.CHANNEL);
             if (channel instanceof TextChannel textChannel) {
                 String message = Config.MESSAGE_PLAYER_QUIT.replace("%player%", player.getName());
-                message = PlaceholderAPI.setPlaceholders(player, message);
+                message = PlaceholderAPI.setPlaceholders((OfflinePlayer) player, message);
                 textChannel.sendComponent(createPlayerInfoMessageCard(player, message, Theme.DANGER));
             }
         });
@@ -83,9 +85,7 @@ public class PlayerListener extends BaseListener {
         cardBuilder.setTheme(theme);
         cardBuilder.setSize(Size.SM);
 
-        if (plugin.getFloodgateManager().isFloodgatePlayer(player.getUniqueId())) {
-            message = message.replace("#", "BE_");
-        }
+        message = message.replace("#", "");
 
         MarkdownElement markdownElement = new MarkdownElement(message);
         ImageElement imageElement = new ImageElement(Utils.getPlayerHeadImageUrl(player), "", Size.SM, false);
