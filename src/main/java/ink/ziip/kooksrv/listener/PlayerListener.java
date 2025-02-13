@@ -85,9 +85,7 @@ public class PlayerListener extends BaseListener {
         cardBuilder.setTheme(theme);
         cardBuilder.setSize(Size.SM);
 
-        message = message.replace("#", "");
-
-        MarkdownElement markdownElement = new MarkdownElement(message);
+        MarkdownElement markdownElement = new MarkdownElement(Utils.escapeMarkdown(message));
         ImageElement imageElement = new ImageElement(Utils.getPlayerHeadImageUrl(player), "", Size.SM, false);
 
         SectionModule sectionModule = new SectionModule(markdownElement, imageElement, Accessory.Mode.LEFT);

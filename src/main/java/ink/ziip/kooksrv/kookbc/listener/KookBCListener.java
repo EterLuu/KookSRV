@@ -13,7 +13,7 @@ public class KookBCListener implements Listener {
     @EventHandler
     public void onKookMessage(ChannelMessageEvent event) {
         Message message = event.getMessage();
-        TextChannel channel = event.getChannel();
+        TextChannel channel = (TextChannel) event.getChannel();
         if (message.getSender().isBot())
             return;
 

@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.geysermc.floodgate.api.FloodgateApi;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,5 +72,9 @@ public class Utils {
             return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName().replace("#", ""));
         else
             return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName()).replace(FloodgateApi.getInstance().getPlayerPrefix(), "");
+    }
+
+    public static String escapeMarkdown(@NotNull String message) {
+        return message.replace("\\", "\\\\").replace("#", "\\#").replace("*", "\\*").replace("~", "\\~");
     }
 }
