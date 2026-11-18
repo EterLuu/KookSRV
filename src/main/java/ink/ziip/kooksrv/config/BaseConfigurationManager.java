@@ -18,6 +18,8 @@ import java.util.List;
 public abstract class BaseConfigurationManager extends BaseManager {
     private final List<BaseConfigurationFile> configs = new ArrayList<>();
 
+    public List<BaseConfigurationFile> getConfigs() { return configs; }
+
     public BaseConfigurationManager(@NotNull KookSRV plugin) {
         super(plugin);
     }

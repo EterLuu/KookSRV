@@ -1,11 +1,34 @@
+# KookSRV 1.2.0 for Paper 26.3
+# All configurable values and player-facing messages belong in this file.
 dont-edit-this:
-  version: 2
-token: ""
-channel: ""
+  version: 3
+settings:
+  enabled: true
+  debug: false
+kook:
+  token: ""
+  channel: ""
+  server-name: "Minecraft 服务器"
+  avatar-url: "https://cravatar.eu/helmavatar/%player_name%/256.png"
+chat:
+  kook-to-minecraft:
+    enabled: true
+  minecraft-to-kook:
+    enabled: true
+  player-join:
+    enabled: true
+  player-quit:
+    enabled: true
 online-players:
+  enabled: true
   keywords:
     - "在线玩家"
     - "在线列表"
+  separator: "，"
+cards:
+  join-theme: INFO
+  quit-theme: DANGER
+  size: SM
 messages:
   kook2minecraft: "&8[&6KOOK&8] &7%player%:&f %message%"
   minecraft2kook: "[%server_name%] %player%: %message%"
@@ -13,3 +36,7 @@ messages:
   no-online-player: "没有玩家在线。"
   player-join: "%player% 加入了 %server_name%。"
   player-quit: "%player% 离开了 %server_name%。"
+  command-usage: "&c用法：/kooksrv <reload|status>"
+  command-reload-success: "&aKookSRV 配置与语言文件已重新加载。"
+  command-reload-failed: "&c配置重载失败：%error%"
+  command-status: "&6KookSRV &7| 频道：%channel% | 服务器：%server_name%"

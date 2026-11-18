@@ -53,11 +53,12 @@ public class Utils {
         }
 
         if (onlinePlayers.isEmpty())
-            return Config.MESSAGE_NO_ONLINE_PLAYER;
+            return Config.MESSAGE_NO_ONLINE_PLAYER.replace("%server_name%", Config.SERVER_NAME);
 
         String message = Config.MESSAGE_ONLINE_PLAYER_LIST
                 .replace("%online_players%", String.valueOf(onlinePlayers.size()))
-                .replace("%list%", String.join("，", onlinePlayers));
+                .replace("%server_name%", Config.SERVER_NAME)
+                .replace("%list%", String.join(Config.ONLINE_PLAYERS_SEPARATOR, onlinePlayers));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             message = PlaceholderAPI.setPlaceholders(player, message);
@@ -69,9 +70,9 @@ public class Utils {
 
     public static String getPlayerHeadImageUrl(Player player) {
         if (!KookSRV.getInstance().getFloodgateManager().isFloodgatePlayer(player.getUniqueId()))
-            return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName().replace("#", ""));
+            return Config.AVATAR_URL.replace("%player_name%", player.getName().replace("#", ""));
         else
-            return "https://cravatar.eu/helmavatar/%player_name%/256.png".replace("%player_name%", player.getName()).replace(FloodgateApi.getInstance().getPlayerPrefix(), "");
+            return Config.AVATAR_URL.replace("%player_name%", player.getName()).replace(FloodgateApi.getInstance().getPlayerPrefix(), "");
     }
 
     public static String escapeMarkdown(@NotNull String message) {

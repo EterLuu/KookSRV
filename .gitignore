@@ -268,3 +268,6 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,linux,macos,maven,gradle,windows,intellij+all,visualstudiocode
+
+# Bundled server APIs required for Maven compilation
+!libs/*.jar

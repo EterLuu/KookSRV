@@ -20,14 +20,16 @@ public class KookBCListener implements Listener {
         if (!channel.getId().equals(Config.CHANNEL))
             return;
 
+        if (!Config.CHAT_KOOK_TO_MINECRAFT) return;
         if (message.getComponent() instanceof TextComponent) {
             String stringMessage = message.getComponent().toString();
-            if (Config.ONLINE_PLAYERS_KEYWORDS.contains(stringMessage)) {
+            if (Config.ONLINE_PLAYERS_ENABLED && Config.ONLINE_PLAYERS_KEYWORDS.contains(stringMessage)) {
                 message.reply(Utils.getOnlinePlayerList());
                 return;
             }
 
             String bukkitMessage = Config.MESSAGE_KOOK_2_MINECRAFT
+                    .replace("%server_name%", Config.SERVER_NAME)
                     .replace("%player%", message.getSender().getNickName(channel.getGuild()))
                     .replace("%message%", stringMessage);
             Utils.sendMessageToAllPlayers(bukkitMessage);

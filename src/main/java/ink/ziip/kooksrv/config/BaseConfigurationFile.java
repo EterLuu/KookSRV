@@ -28,10 +28,11 @@ import java.util.logging.Level;
 public abstract class BaseConfigurationFile {
     @NotNull
     protected final KookSRV plugin;
-    @Getter
     private boolean outdated = false;
-    @Getter
     protected YamlConfiguration configuration;
+
+    public boolean isOutdated() { return outdated; }
+    public YamlConfiguration getConfiguration() { return configuration; }
     protected Path configurationPath;
 
     /**

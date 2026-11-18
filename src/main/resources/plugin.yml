@@ -2,8 +2,17 @@ name: KookSRV
 version: '${project.version}'
 author: Eter Lu
 main: ink.ziip.kooksrv.KookSRV
-api-version: '1.20'
+api-version: '26.3'
 depend:
   - PlaceholderAPI
 softdepend:
   - floodgate
+commands:
+  kooksrv:
+    description: Shows or reloads the KOOK bridge configuration.
+    usage: /kooksrv <reload|status>
+    permission: kooksrv.admin
+permissions:
+  kooksrv.admin:
+    description: Allows managing the KOOK bridge.
+    default: op

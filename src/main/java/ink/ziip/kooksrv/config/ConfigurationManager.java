@@ -9,6 +9,11 @@ public class ConfigurationManager extends BaseConfigurationManager {
     }
 
     @Override
+    public void load() {
+        super.load();
+    }
+
+    @Override
     protected boolean isAutoUpgradeEnabled() {
         return true;
     }
