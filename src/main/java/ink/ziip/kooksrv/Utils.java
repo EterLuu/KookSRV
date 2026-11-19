@@ -38,11 +38,20 @@ public class Utils {
     }
 
     public static void sendMessageToAllPlayers(String message) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(message);
-        }
+        Runnable delivery = () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.sendMessage(message);
+            }
+            KookSRV.getInstance().getLogger().log(Level.INFO, ChatColor.stripColor(message));
+        };
 
-        KookSRV.getInstance().getLogger().log(Level.INFO, ChatColor.stripColor(message));
+        // KookBC 0.33 processes events in parallel (virtual threads) by default,
+        // while Bukkit's player API is only safe on the server thread.
+        if (Bukkit.isPrimaryThread()) {
+            delivery.run();
+        } else {
+            Bukkit.getScheduler().runTask(KookSRV.getInstance(), delivery);
+        }
     }
 
     public static String getOnlinePlayerList() {

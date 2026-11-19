@@ -17,7 +17,7 @@
         <spigot.version>26.3-R0.1-SNAPSHOT</spigot.version>
         <placeholderapi.version>2.12.3</placeholderapi.version>
         <floodgate.version>2.2.5-SNAPSHOT</floodgate.version>
-        <kookbc.version>0.32.2</kookbc.version>
+        <kookbc.version>0.33.0</kookbc.version>
         <lombok.version>1.18.42</lombok.version>
     </properties>
 
@@ -74,8 +74,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.github.SNWCreations</groupId>
-            <artifactId>KookBC</artifactId>
+            <groupId>io.github.snwcreations</groupId>
+            <artifactId>kookbc</artifactId>
             <version>${kookbc.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -133,6 +133,9 @@
                                 <relocation><pattern>snw.kookbc</pattern><shadedPattern>ink.ziip.kooksrv.snw.kookbc</shadedPattern></relocation>
                                 <relocation><pattern>com.google.gson</pattern><shadedPattern>ink.ziip.kooksrv.com.google.gson</shadedPattern></relocation>
                                 <relocation><pattern>org.yaml.snakeyaml</pattern><shadedPattern>ink.ziip.kooksrv.org.yaml.snakeyaml</shadedPattern></relocation>
+                                <!-- KookBC 0.33 switched JSON handling from Gson to Jackson;
+                                     relocate it so the server's own Jackson cannot clash. -->
+                                <relocation><pattern>com.fasterxml.jackson</pattern><shadedPattern>ink.ziip.kooksrv.com.fasterxml.jackson</shadedPattern></relocation>
                             </relocations>
                             <filters>
                                 <filter>
@@ -140,6 +143,11 @@
                                     <excludes><exclude>module-info.class</exclude></excludes>
                                 </filter>
                             </filters>
+                            <transformers>
+                                <!-- Keep META-INF/services providers in sync with the
+                                     relocated package names (notably Jackson). -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            </transformers>
                         </configuration>
                     </execution>
                 </executions>

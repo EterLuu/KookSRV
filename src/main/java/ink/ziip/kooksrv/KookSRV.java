@@ -142,6 +142,11 @@ public final class KookSRV extends JavaPlugin {
             // From this point on JKook has a registered core for this JVM.
             coreInitialised = true;
             YamlConfiguration config = new YamlConfiguration();
+            // KookBC 0.33 dispatches listeners on virtual threads by default. Chat
+            // bridges must preserve message order and touch Bukkit only from the
+            // server thread, so keep the deterministic serial dispatcher used by
+            // earlier KookBC releases.
+            config.set("enable-parallel-event-processing", false);
             KBCClient client = new KBCClient(core, config, null, Config.TOKEN);
             client.start();
             client.getCore().getEventManager().registerHandlers(client.getInternalPlugin(), new KookBCListener());

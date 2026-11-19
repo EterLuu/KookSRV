@@ -1,7 +1,9 @@
 package ink.ziip.kooksrv.kookbc.listener;
 
+import ink.ziip.kooksrv.KookSRV;
 import ink.ziip.kooksrv.Utils;
 import ink.ziip.kooksrv.config.Config;
+import org.bukkit.Bukkit;
 import snw.jkook.entity.channel.TextChannel;
 import snw.jkook.event.EventHandler;
 import snw.jkook.event.Listener;
@@ -24,7 +26,12 @@ public class KookBCListener implements Listener {
         if (message.getComponent() instanceof TextComponent) {
             String stringMessage = message.getComponent().toString();
             if (Config.ONLINE_PLAYERS_ENABLED && Config.ONLINE_PLAYERS_KEYWORDS.contains(stringMessage)) {
-                message.reply(Utils.getOnlinePlayerList());
+                // Placeholder resolution touches Bukkit state, so build the reply
+                // on the server thread and send it asynchronously afterwards.
+                Bukkit.getScheduler().runTask(KookSRV.getInstance(), () -> {
+                    String reply = Utils.getOnlinePlayerList();
+                    Bukkit.getScheduler().runTaskAsynchronously(KookSRV.getInstance(), () -> message.reply(reply));
+                });
                 return;
             }
 

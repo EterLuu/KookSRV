@@ -18,6 +18,16 @@ mvn clean package
 
 产物：`target/KookSRV-1.2.0-26.3.jar`（已内嵌并重定位 KookBC/JKook 依赖）。
 
+依赖说明：
+
+- KookBC `0.33.0`，从 Maven Central 引入（`io.github.snwcreations:kookbc:0.33.0`），
+  其底层为 JKook `0.54.2`。
+- KookBC 0.33 的 JSON 实现由 Gson 切换到 Jackson，Jackson（`com.fasterxml.jackson`）
+  已随插件内嵌并重定位，避免与服务端自带版本冲突；`META-INF/services` 通过
+  `ServicesResourceTransformer` 同步重定位。
+- KookBC 0.33 默认在虚拟线程上并行派发事件；本插件已关闭并行事件处理以保持消息顺序，
+  所有 Bukkit API 调用都会回到主线程执行。
+
 ## 配置
 
 所有设置与文本均在 `config.yml`：
