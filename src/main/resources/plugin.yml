@@ -1,8 +1,8 @@
 name: KookSRV
-version: '${project.version}'
+version: '${project.version}-${paper.version}'
 author: Eter Lu
 main: ink.ziip.kooksrv.KookSRV
-api-version: '26.3'
+api-version: '${paper.api-version}'
 depend:
   - PlaceholderAPI
 softdepend:

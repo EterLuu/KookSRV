@@ -6,15 +6,17 @@
 
     <groupId>ink.ziip</groupId>
     <artifactId>KookSRV</artifactId>
-    <version>1.2.0-26.3</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
     <name>KookSRV</name>
-    <description>KOOK chat bridge for Paper 26.3.</description>
+    <description>KOOK chat bridge for Paper 26.3 and 1.21.x.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <spigot.version>26.3-R0.1-SNAPSHOT</spigot.version>
+        <paper.version>26.3</paper.version>
+        <paper.api-version>26.3</paper.api-version>
+        <spigot.version>${paper.version}-R0.1-SNAPSHOT</spigot.version>
         <placeholderapi.version>2.12.3</placeholderapi.version>
         <floodgate.version>2.2.5-SNAPSHOT</floodgate.version>
         <kookbc.version>0.33.0</kookbc.version>
@@ -94,7 +96,7 @@
     </dependencies>
 
     <build>
-        <finalName>KookSRV-${project.version}</finalName>
+        <finalName>KookSRV-${project.version}-${paper.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

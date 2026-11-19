@@ -5,7 +5,7 @@ KookSRV 将 Minecraft 与 KOOK 频道连接，支持双向聊天、玩家上下�
 
 ## 环境
 
-- Paper 26.3（`spigot-api 26.3`）
+- Paper 26.3 或 Paper 1.21.11（兼容整个 Paper 1.21.x 系列）
 - Java 21+
 - PlaceholderAPI 2.12.x
 - 可选：Floodgate
@@ -13,10 +13,14 @@ KookSRV 将 Minecraft 与 KOOK 频道连接，支持双向聊天、玩家上下�
 ## 构建
 
 ```bash
-mvn clean package
+bash scripts/build.sh                     # Paper 26.3，默认
+PAPER_API_VERSION=1.21.11 bash scripts/build.sh
 ```
 
-产物：`target/KookSRV-1.2.0-26.3.jar`（已内嵌并重定位 KookBC/JKook 依赖）。
+产物写入 `dist/KookSRV-1.2.0-<Paper版本>.jar`（已内嵌并重定位 KookBC/JKook
+依赖）。1.21.x 产物声明 `api-version: 1.21`，可通用于 1.21.1 至 1.21.11；26.3
+产物声明 `api-version: 26.3`。直接执行 `mvn clean package` 仍会构建默认的
+Paper 26.3 版本。
 
 依赖说明：
 
